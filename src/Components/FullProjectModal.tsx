@@ -14,7 +14,7 @@ const FullProjectModal = (props: any) => {
             <Modal.Body className="!bg-bgColor xs-mx:!p-2 !pt-2 !border-primaryColor  !border-2 !border-t-0 !rounded-bl-3xl !rounded-br-3xl">
                 <Image
                     className="!rounded-xl !shadow-[0_0_5px_0_#64FFDA]"
-                    src={props.image}
+                    src={"/Portfolio/"+props.image}
                     alt={props.image}
                 />
                 <div className="flex flex-wrap gap-3 xs-mx:gap-2 my-3">
