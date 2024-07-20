@@ -36,11 +36,10 @@ function App() {
   return (
     <MantineProvider theme={theme} >
       <BrowserRouter basename="/Portfolio">
-      <Notifications autoClose={4000} />
-      <Routes>
-        <Route path="/" element={<HomePage/>} />
-      </Routes>
-      <HomePage />      
+        <Notifications autoClose={4000} />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
       </BrowserRouter>
     </MantineProvider>
   );
