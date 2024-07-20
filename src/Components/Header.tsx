@@ -1,4 +1,4 @@
-import { IconHexagonLetterC } from "@tabler/icons-react";
+import { IconHexagonLetterA } from "@tabler/icons-react";
 import SideBar from "./SideBar";
 import { useMediaQuery } from "@mantine/hooks";
 import { em } from "@mantine/core";
@@ -15,7 +15,7 @@ const Header=()=>{
 return (
     <nav className="flex bg-bgColor h-28  px-10  justify-between items-center xs-mx:px-4 xs-mx:h-20 ">
         
-        <IconHexagonLetterC className="z-10" size={isMobile?45:60} color="#64FFDA" stroke={1.25}/>
+        <IconHexagonLetterA className="z-10" size={isMobile?45:60} color="#64FFDA" stroke={1.25}/>
         <div className="bs:flex gap-8 hidden">
             {navLinks(false)}
         </div>

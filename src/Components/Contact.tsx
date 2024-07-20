@@ -4,6 +4,7 @@ import { Button, useMatches } from "@mantine/core";
 import { IconArrowRight, IconCheck, IconHexagon, IconTopologyStar3, IconX } from "@tabler/icons-react";
 import emailjs from '@emailjs/browser';
 import { Loader } from "./Loader";
+import { notifications } from "@mantine/notifications";
 
 const Contact = () => {
   const xIcon = <IconX style={{ width: '20rem', height: '20rem' }} />;
@@ -15,7 +16,6 @@ const Contact = () => {
     message: ""
   }
   const [formData, setFormData] = useState(form);
-  const [isToast, setIsToast] = useState({ success: false, faild: false });
   const [isLoading, setIsLoading] = useState(false);
   const handleChange = (id: string, value: string) => {
     setFormData({ ...formData, [id]: value });
@@ -27,16 +27,16 @@ const Contact = () => {
     lg: "lg"
   })
 
-  useEffect(() => {
-    if (isToast.faild || isToast.success) {
-      setTimeout(() => {
-        setIsToast({ success: false, faild: false })
-      }, 1000);
-    }
-  }, [isToast])
-
 
   const handleSubmit = () => {
+    if(Object.keys(form).some(item=>!(formData as any)[item])){
+      notifications.show({
+        // title: 'Default notification',
+        color:'red',
+        message: 'Please fill out all field ! 🤥',
+      })
+      return
+    }
     setIsLoading(true)
     emailjs
       .send("service_62rej4n", "template_yff23m7",
@@ -45,11 +45,16 @@ const Contact = () => {
       })
       .then(
         (res) => {
-          setIsToast(prev => ({ ...prev, success: true }))
+          notifications.show({
+            message: 'Send Successfull',
+          })
           setFormData(form)
         },
         (error) => {
-          setIsToast(prev => ({ ...prev, faild: true }))
+          notifications.show({
+            color:'red',
+            message: 'Send Faild',
+          })
         },
       ).finally(() => setIsLoading(false))
   }
@@ -63,12 +68,12 @@ const Contact = () => {
         <FloatingInput id="email" name="Email" value={formData.email} handleChange={handleChange} />
         {isLoading && <div className="relative flex h-full w-full animate-[ping_1.5s_ease-in-out_1_4.5s] items-center justify-center">
           <IconHexagon className="absolute -z-10 animate-[spin_5s_linear_infinite]" size={120} color="#64FFDA" stroke={1.25} />
-          <div className=" absolute font-mono text-primaryColor font-semibold text-6xl -z-10">C</div>
+          <div className=" absolute font-mono text-primaryColor font-semibold text-6xl -z-10">A</div>
         </div>}
         <FloatingInput id="phone" name="Phone Number" value={formData.phone} handleChange={handleChange} />
         <FloatingInput id="message" name="Message" value={formData.message} handleChange={handleChange} />
         <Button fullWidth rightSection={<IconArrowRight size={20} />}
-          className="!text-bgColor !font-bold " variant="filled" size={btn} radius="lg" color={isToast.success ? '#16a34a' : isToast.success ? "#e11d48" : "#64FFDA"} onClick={() => { handleSubmit() }}>{isToast.success ? 'Success' : isToast.success ? "Faild" : 'Send'}</Button>
+          className="!text-bgColor !font-bold " variant="filled" size={btn} radius="lg" color={"#64FFDA"} onClick={() => { handleSubmit() }}>Send</Button>
       </div>
     </div>
   )

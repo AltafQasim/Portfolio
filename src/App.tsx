@@ -6,6 +6,8 @@ import { pdfjs } from 'react-pdf';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from "react";
+import { Notifications } from "@mantine/notifications";
+import '@mantine/notifications/styles.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -13,7 +15,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 function App() {
-  useEffect(()=>{
+  useEffect(() => {
     AOS.init();
     AOS.refresh();
   }, []);
@@ -31,7 +33,8 @@ function App() {
   });
   return (
     <MantineProvider theme={theme} >
-    <HomePage/>
+      <Notifications autoClose={4000} />
+      <HomePage />      
     </MantineProvider>
   );
 }
