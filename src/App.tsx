@@ -8,6 +8,8 @@ import 'aos/dist/aos.css';
 import { useEffect } from "react";
 import { Notifications } from "@mantine/notifications";
 import '@mantine/notifications/styles.css'
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -33,8 +35,13 @@ function App() {
   });
   return (
     <MantineProvider theme={theme} >
+      <BrowserRouter basename="/Portfolio">
       <Notifications autoClose={4000} />
+      <Routes>
+        <Route path="/" element={<HomePage/>} />
+      </Routes>
       <HomePage />      
+      </BrowserRouter>
     </MantineProvider>
   );
 }
